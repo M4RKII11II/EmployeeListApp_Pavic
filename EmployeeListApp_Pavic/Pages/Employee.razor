@@ -1,0 +1,33 @@
+﻿@page "/employees"
+@inject EmployeeService employeeService
+
+<h1>Employee List</h1>
+<p>This component demonstrates managing an Employee list.</p>
+@if(employees == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>FullName</th>
+				<th>Department</th>
+				<th>Salary</th>
+			</tr>
+		</thead>
+	</table>
+}
+@code {
+	List<EmployeeListApp_Pavic.Data.Employee> employees;
+	protected override async Task OnInitializedAsync()
+	{
+		await Load();
+	}
+	protected async Task Load()
+	{
+		employees = await employeeService.GetEmployeeAsync();
+	}
+}
